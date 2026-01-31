@@ -12,7 +12,7 @@ A Prometheus exporter for DeepL API usage metrics written in Go.
 
 ### Run the exporter:
 
-docker run -e DEEPL_API_KEY=your-api-key -p 1818:1818 ghcr.io/jadolg/deepl-exporter
+`docker run -e DEEPL_API_KEY=your-api-key -p 1818:1818 ghcr.io/jadolg/deepl-exporter`
 
 ## Prometheus Configuration
 
