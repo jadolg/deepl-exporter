@@ -1,6 +1,6 @@
 # DeepL Prometheus Exporter
 
-A Prometheus exporter for DeepL API usage metrics written in Go.
+A Prometheus exporter for [DeepL](https://www.deepl.com/) API usage metrics written in Go.
 
 ## Metrics Exposed
 
