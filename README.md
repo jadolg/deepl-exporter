@@ -25,3 +25,17 @@ scrape_configs:
       - targets: ['localhost:1818']
     scrape_interval: 5m  # Recommended: 5 minutes
 ```
+
+And this to your alerts' configuration:
+
+```yaml
+- alert: DeepLUsageHigh
+  expr: deepl_character_usage_percent >= 95
+  for: 5m
+  labels:
+    severity: warning
+    service: deepl
+  annotations:
+    summary: "DeepL API usage is critically high"
+    description: "DeepL API usage has reached {{ $value | humanize }}% of the character limit. Consider upgrading your plan or reducing usage."
+```
