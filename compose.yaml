@@ -1,0 +1,8 @@
+services:
+  deepl-exporter:
+    image: ghcr.io/jadolg/deepl-exporter:latest
+    ports:
+      - "1818:1818"
+    restart: unless-stopped
+    environment:
+      - DEEPL_API_KEY=${DEEPL_API_KEY}
