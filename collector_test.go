@@ -40,7 +40,6 @@ func TestNewDeepLCollector(t *testing.T) {
 }
 
 func TestDeepLCollector_Collect(t *testing.T) {
-	// Mock server
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Header.Get("Authorization") != "DeepL-Auth-Key test-key" {
 			w.WriteHeader(http.StatusUnauthorized)
@@ -52,7 +51,7 @@ func TestDeepLCollector_Collect(t *testing.T) {
 	defer ts.Close()
 
 	c := NewDeepLCollector("test-key")
-	c.apiURL = ts.URL // Override URL for testing
+	c.apiURL = ts.URL
 
 	ch := make(chan prometheus.Metric)
 	go func() {
@@ -62,13 +61,7 @@ func TestDeepLCollector_Collect(t *testing.T) {
 
 	metrics := make(map[string]float64)
 	for m := range ch {
-		// Extract metric info (simplified for testing)
-		// in a real test we might use prometheus/client_golang/prometheus/testutil
-		// but checking the output via Desc is hard without collecting it.
-		// Since we can't easily peek into Metric, we will trust it didn't panic and produced something.
-		// To properly test, we should register it and gather.
 		_ = m
-		// counting metrics
 		metrics["count"]++
 	}
 

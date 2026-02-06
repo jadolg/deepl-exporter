@@ -5,7 +5,7 @@ WORKDIR /app
 COPY go.mod go.sum /app/
 RUN go mod download
 
-COPY main.go ./
+COPY main.go collector.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o deepl-exporter .
 

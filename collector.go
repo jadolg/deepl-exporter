@@ -18,13 +18,11 @@ const (
 	freeAPIURL     = "https://api-free.deepl.com/v2/usage"
 )
 
-// DeepLUsage represents the JSON response from DeepL API
 type DeepLUsage struct {
 	CharacterCount int64 `json:"character_count"`
 	CharacterLimit int64 `json:"character_limit"`
 }
 
-// DeepLCollector collects metrics from DeepL API
 type DeepLCollector struct {
 	apiKey            string
 	apiURL            string
@@ -34,10 +32,7 @@ type DeepLCollector struct {
 	characterUsagePct *prometheus.Desc
 }
 
-// NewDeepLCollector creates a new collector
 func NewDeepLCollector(apiKey string) *DeepLCollector {
-	// Detect API type from key suffix
-	// Free API keys end with ":fx"
 	apiURL := proAPIURL
 	if len(apiKey) > 3 && apiKey[len(apiKey)-3:] == ":fx" {
 		apiURL = freeAPIURL
@@ -73,14 +68,12 @@ func NewDeepLCollector(apiKey string) *DeepLCollector {
 	}
 }
 
-// Describe implements prometheus.Collector
 func (c *DeepLCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.characterCount
 	ch <- c.characterLimit
 	ch <- c.characterUsagePct
 }
 
-// Collect implements prometheus.Collector
 func (c *DeepLCollector) Collect(ch chan<- prometheus.Metric) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
